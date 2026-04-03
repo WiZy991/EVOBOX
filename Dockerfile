@@ -20,7 +20,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# sharp (next/image в standalone) и совместимость с musl в Alpine
+# musl / совместимость для части нативных модулей в Node на Alpine
 RUN apk add --no-cache libc6-compat
 
 RUN addgroup --system --gid 1001 nodejs

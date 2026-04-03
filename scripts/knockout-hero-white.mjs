@@ -4,6 +4,8 @@
  * Белый корпус терминала внутри кадра не трогаем — он не соединён с краями через чисто белые пиксели.
  *
  * node scripts/knockout-hero-white.mjs
+ *
+ * Зависимость sharp не в package.json сайта (сборка на слабом VPS). Перед запуском: npm i -D sharp
  */
 
 import { mkdir, writeFile } from "fs/promises";

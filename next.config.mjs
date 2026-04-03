@@ -5,7 +5,9 @@ const nextConfig = {
     cpus: 1,
   },
   output: "standalone",
+  /** Без sharp — меньше нативного кода при сборке (избегаем SIGBUS на малом VPS). Картинки как обычные <img>. */
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -13,6 +15,10 @@ const nextConfig = {
         pathname: "/static/**",
       },
     ],
+  },
+  /** Линт в CI/локально; на слабом сервере экономит память при `next build` */
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 };
 
