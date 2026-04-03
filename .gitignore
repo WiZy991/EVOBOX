@@ -16,6 +16,9 @@
 # production
 /build
 
+# product import scratch (npm run import:products)
+/src/data/import-debug.json
+
 # misc
 .DS_Store
 *.pem

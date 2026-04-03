@@ -1,0 +1,162 @@
+[
+  {
+    "id": "evotor-6",
+    "slug": "evotor-6",
+    "name": "Эвотор 6",
+    "shortDescription": "Онлайн-касса 3 в 1: касса, сканер штрихкодов и марок, терминал для карт и СБП.",
+    "fullDescription": "«Эвотор 6» (ST611) — компактная онлайн-касса со встроенным пин-падом и сканером. Подходит для маркировки, ЕГАИС, работы на выезде и в торговом зале. Цена «от» — ориентир; комплекты и акции уточняйте у EVOBOX.",
+    "image": "https://evotor.ru/static/8c8da6a5c9fe1d58558d90d2464c413a/evotor6_view0_cd997d7c5d.jpg",
+    "priceFromRub": 29900,
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "52 Ф" },
+      { "label": "Экран", "value": "6,5\", 720×1600" },
+      { "label": "Память", "value": "RAM 2 ГБ, накопитель 32 ГБ" },
+      { "label": "Связь", "value": "Wi‑Fi, Bluetooth 5.0, nano SIM + eSIM" },
+      { "label": "Вес", "value": "около 450 г" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/evotor-6/",
+    "category": "Смарт-терминалы",
+    "highlights": ["Маркировка и ЕГАИС", "Эквайринг и СБП", "Приложения Эвотор"]
+  },
+  {
+    "id": "evotor-5i",
+    "slug": "evotor-5i",
+    "name": "Эвотор 5i",
+    "shortDescription": "Касса и терминал в одном устройстве — для выезда, курьеров и компактных точек.",
+    "fullDescription": "«Эвотор 5i» (ST521) — решение 2 в 1 для приёма платежей на выезде: курьерские службы, доставка, мобильная торговля. Подключение эквайринга через Эвотор.PAY. Цена «от» — ориентир; уточняйте у менеджера.",
+    "image": "https://evotor.ru/static/a7107ff795afa4683fb02c31a83c8dcd/5i_cover_1_adf218518c.png",
+    "priceFromRub": 26900,
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "СТ51Ф" },
+      { "label": "Экран", "value": "5,5\", 1280×720" },
+      { "label": "Память", "value": "RAM 1 ГБ, накопитель 8 ГБ" },
+      { "label": "Процессор", "value": "MediaTek MTK8321A, 4×1,3 ГГц" },
+      { "label": "Связь", "value": "Wi‑Fi, Bluetooth 4.0" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/evotor-5i/",
+    "category": "Смарт-терминалы",
+    "highlights": ["До 12 ч автономности", "Лёгкий корпус", "Карты и QR"]
+  },
+  {
+    "id": "evotor-5-st",
+    "slug": "evotor-5-st",
+    "name": "Эвотор 5 ST",
+    "shortDescription": "Бюджетная мобильная касса с печатью чеков — для небольших точек и выезда.",
+    "fullDescription": "«Эвотор 5 ST» (ST512) — компактная онлайн-касса с термопечатью, GPS/ГЛОНАСС и смарт-картой для связи. Подходит для точек, где важны мобильность и автономность.",
+    "image": "https://evotor.ru/static/8887c199cbb42ece52d71b5197da63ff/5_ST_2_e737760b3d.jpg",
+    "priceFromRub": 24900,
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "СТ51Ф (серия 5)" },
+      { "label": "Экран", "value": "5,5\", 1280×720" },
+      { "label": "Память", "value": "RAM 1 ГБ, накопитель 8 ГБ" },
+      { "label": "Печать", "value": "Термопечать, лента 57 мм" },
+      { "label": "Навигация", "value": "GPS, ГЛОНАСС" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/evotor-5-st/",
+    "category": "Смарт-терминалы",
+    "highlights": ["Печать чеков", "Автономность", "Маркировка и ЕГАИС"]
+  },
+  {
+    "id": "evotor-7-3",
+    "slug": "evotor-7-3",
+    "name": "Эвотор 7.3",
+    "shortDescription": "Смарт-терминал с экраном 7\" и чековым принтером — универсальная касса для торговли и услуг.",
+    "fullDescription": "«Эвотор 7.3» (ST730) — терминал с дисплеем 7\", встроенным принтером чеков и расширенным подключением периферии. Подходит для магазинов, общепита и сервисных компаний.",
+    "image": "https://evotor.ru/static/08c47fd89d14eff0362fec263942cff3/7_3_main_38b8bae399.jpg",
+    "priceFromRub": 35900,
+    "specifications": [
+      { "label": "Экран", "value": "7\", 1024×600" },
+      { "label": "Печать", "value": "до 90 мм/с" },
+      { "label": "USB", "value": "несколько портов для периферии" },
+      { "label": "Автономность", "value": "до 14 ч (по данным производителя)" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/evotor-7-3/",
+    "category": "Смарт-терминалы",
+    "highlights": ["Крупный экран", "Интеграции", "Маркировка"]
+  },
+  {
+    "id": "evotor-10",
+    "slug": "evotor-10",
+    "name": "Эвотор 10",
+    "shortDescription": "Касса с экраном 10\" для HoReCa, большого меню и удобной работы кассира.",
+    "fullDescription": "«Эвотор 10» (ST1010) — широкий экран для ресторанов, кафе и салонов: столики, меню, интеграции с r_keeper, Quick Resto, Dooglys. До 12 часов без подзарядки по данным Эвотор.",
+    "image": "https://evotor.ru/static/ea609f17ba4bd845503e7dd2026df767/10_main_1_d9af264d13.jpg",
+    "priceFromRub": 39900,
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "СТ3Ф" },
+      { "label": "Экран", "value": "10,1\", 1280×800" },
+      { "label": "Память", "value": "RAM 1 ГБ, накопитель 8 ГБ" },
+      { "label": "Ethernet", "value": "есть" },
+      { "label": "Камера", "value": "5 Мп" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/evotor-10/",
+    "category": "Смарт-терминалы",
+    "highlights": ["HoReCa", "Большой каталог", "Интеграции"]
+  },
+  {
+    "id": "evotor-power-st",
+    "slug": "evotor-power-st",
+    "name": "Power-СТ",
+    "shortDescription": "Мощный смарт-терминал Power для высокой нагрузки и быстрой печати чеков.",
+    "fullDescription": "«Power-СТ» (ST741) — smart онлайн-касса с процессором NXP i.MX 8M, скоростью печати до 300 мм/с и до 8 USB-портов. Для магазинов и кафе с пиковыми нагрузками.",
+    "image": "https://evotor.ru/static/3dc0f12d26d5d6f2cad11611b5a1e9f3/2_V3_A0541_1_0310d18979.jpg",
+    "priceFromRub": 45000,
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "1Ф" },
+      { "label": "Экран", "value": "7\", 1024×600" },
+      { "label": "Накопитель", "value": "16 ГБ" },
+      { "label": "USB", "value": "8 портов" },
+      { "label": "Печать", "value": "до 300 мм/с, автоотрез" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/power-st/",
+    "category": "Линейка Power",
+    "highlights": ["Высокая скорость", "Много USB", "Маркировка и ЕГАИС"]
+  },
+  {
+    "id": "evotor-power-pos-base",
+    "slug": "evotor-power-pos-base",
+    "name": "Power-POS Base",
+    "shortDescription": "Готовый комплект POS на базе Power: монитор, сканер, ФН, ОФД и услуга «Легкий старт».",
+    "fullDescription": "Комплект Power-POS Base включает Power-POS, сенсорный монитор, 2D-сканер, фискальный накопитель, ОФД и услугу «Легкий старт». Совместимость с 1С, r_keeper, iiko, АГБИС и др. Цена «от» — ориентир по комплекту; детали у EVOBOX.",
+    "image": "https://evotor.ru/static/e1919c36537425227c0eb1209199aa00/power_pos_1_ed01705c8c.png",
+    "priceFromRub": 71137,
+    "priceNote": "Комплект; есть конфигурации Optimum и Max",
+    "specifications": [
+      { "label": "Состав", "value": "Power-POS, монитор, 2D-сканер, ФН, ОФД" },
+      { "label": "Экран кассы", "value": "7\", 1024×600" },
+      { "label": "Память", "value": "RAM 2 ГБ, накопитель 16 ГБ" },
+      { "label": "Ethernet", "value": "есть" }
+    ],
+    "status": "current",
+    "sourceUrl": "https://evotor.ru/product/power-pos-base/",
+    "category": "Линейка Power",
+    "highlights": ["Готовый комплект", "Отраслевой софт", "Быстрая печать"]
+  },
+  {
+    "id": "evotor-7-2",
+    "slug": "evotor-7-2",
+    "name": "Эвотор 7.2",
+    "shortDescription": "Модель снята с производства; рекомендуем перейти на Эвотор 7.3.",
+    "fullDescription": "«Эвотор 7.2» (ST721) снят с производства. Для новых внедрений рекомендуем модель Эвотор 7.3 — см. карточку в каталоге EVOBOX.",
+    "image": "https://evotor.ru/static/d95e3a66677183b523023782ab55c4b2/7_2_cover_125e7065b1.png",
+    "priceFromRub": 0,
+    "priceNote": "Не продаётся как новая; см. Эвотор 7.3",
+    "specifications": [
+      { "label": "Модель в реестре ФНС", "value": "СТ2Ф" },
+      { "label": "Экран", "value": "7\", 1024×600" },
+      { "label": "Память", "value": "RAM 1 ГБ, накопитель 8 ГБ" },
+      { "label": "USB", "value": "6 портов" }
+    ],
+    "status": "discontinued",
+    "statusNote": "Снят с производства; актуальная замена — Эвотор 7.3",
+    "sourceUrl": "https://evotor.ru/product/evotor-7-2/",
+    "category": "Смарт-терминалы",
+    "highlights": ["Архивная модель", "Замена — 7.3"]
+  }
+]

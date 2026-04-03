@@ -2,22 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Палитра в духе тёмного лендинга с жёлтым акцентом (ориентир — контрастные supplier-сайты).
+ * Зелёный Эвотор сохранён для кнопок/секций каталога.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f4f2;
+  --foreground: #0f172a;
+  --brand-dark: #0c0c0c;
+  --brand-dark-soft: #141414;
+  --brand-yellow: #e8b923;
+  --brand-yellow-bright: #f5d03a;
+  --brand-amber-glow: rgba(245, 208, 58, 0.45);
+  --evo-green: #00a651;
+  --evo-green-dark: #008c45;
+  --evo-orange: #ff6b00;
+  --evo-orange-hover: #e65f00;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Мягкое «преломление света»: сдвигающиеся блики + конусный ореол */
+.hero-light-refract {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background: linear-gradient(
+      118deg,
+      transparent 0%,
+      rgba(250, 204, 21, 0.07) 38%,
+      rgba(253, 230, 138, 0.14) 49.5%,
+      rgba(250, 204, 21, 0.08) 61%,
+      transparent 100%
+    ),
+    linear-gradient(302deg, transparent 25%, rgba(234, 179, 8, 0.05) 48%, transparent 72%);
+  mix-blend-mode: screen;
+  animation: hero-refract-drift 16s ease-in-out infinite;
+}
+
+.hero-light-refract-rim {
+  position: absolute;
+  inset: -30% -10% 40% -10%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 200deg at 50% 100%,
+    transparent 0deg,
+    rgba(251, 191, 36, 0.12) 55deg,
+    rgba(253, 224, 71, 0.18) 95deg,
+    rgba(252, 211, 77, 0.1) 140deg,
+    transparent 200deg
+  );
+  filter: blur(48px);
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  animation: hero-refract-rim 22s ease-in-out infinite alternate;
+}
+
+@keyframes hero-refract-drift {
+  0%,
+  100% {
+    transform: translateX(-6%) skewX(-2deg) scale(1.05);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(7%) skewX(1deg) scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-refract-rim {
+  0% {
+    transform: rotate(-2deg) scale(1);
+  }
+  100% {
+    transform: rotate(3deg) scale(1.06);
+  }
 }
 
 @layer utilities {

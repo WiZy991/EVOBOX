@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+npm-debug.log*
+
+# next
+.next
+out
+
+# env (передаются через compose / -e / --env-file)
+.env
+.env.*
+!.env.example
+
+# git / ide
+.git
+.gitignore
+.cursor
+*.md
+!README.md
+
+# misc
+tz.txt
+Dockerfile*
+docker-compose*.yml
+.dockerignore
