@@ -4,7 +4,11 @@ const nextConfig = {
   experimental: {
     cpus: 1,
   },
-  output: "standalone",
+  /**
+   * Standalone нужен Docker’у (меньший образ). На слабом VPS сборка с standalone сильнее жрёт RAM.
+   * На сервере без Docker: `SKIP_STANDALONE=1 npm run build`, затем `npm start` / PM2.
+   */
+  ...(process.env.SKIP_STANDALONE === "1" ? {} : { output: "standalone" }),
   /** Без sharp — меньше нативного кода при сборке (избегаем SIGBUS на малом VPS). Картинки как обычные <img>. */
   images: {
     unoptimized: true,
