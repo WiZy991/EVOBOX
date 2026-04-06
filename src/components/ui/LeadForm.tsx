@@ -94,6 +94,8 @@ function LeadFormInner({
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  /** Частичный успех: почта и CRM шли отдельно */
+  const [channelNote, setChannelNote] = useState<string | null>(null);
   /** Показать в экране «отправлено», пока URL уже без ?service= */
   const [submittedServiceTitle, setSubmittedServiceTitle] = useState<string | null>(null);
 
@@ -118,6 +120,7 @@ function LeadFormInner({
 
     setStatus("loading");
     setErrorMessage(null);
+    setChannelNote(null);
 
     const serviceTitle = selectedService?.title;
 
@@ -142,12 +145,23 @@ function LeadFormInner({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res.json()) as { ok?: boolean; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        emailOk?: boolean;
+        crmOk?: boolean;
+      };
 
       if (!res.ok || !data.ok) {
         setStatus("error");
         setErrorMessage(data.error || "Не удалось отправить. Попробуйте позже или позвоните нам.");
         return;
+      }
+
+      if (data.crmOk === false && data.emailOk === true) {
+        setChannelNote("Заявка ушла на почту; в CRM запись не создалась — мы свяжемся по данным из письма.");
+      } else if (data.emailOk === false && data.crmOk === true) {
+        setChannelNote("Письмо не отправилось; заявка передана в CRM — с вами свяжутся оттуда.");
       }
 
       setSubmittedServiceTitle(serviceTitle ?? null);
@@ -200,6 +214,16 @@ function LeadFormInner({
         <p className={cn("mt-2 text-slate-600", compact ? "text-xs" : "text-sm")}>
           Мы свяжемся с вами в ближайшее время.
         </p>
+        {channelNote ? (
+          <p
+            className={cn(
+              "mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-left text-amber-950",
+              compact ? "text-xs leading-snug" : "text-sm leading-snug",
+            )}
+          >
+            {channelNote}
+          </p>
+        ) : null}
         <Button
           type="button"
           variant="secondary"
@@ -207,6 +231,7 @@ function LeadFormInner({
           onClick={() => {
             setStatus("idle");
             setSubmittedServiceTitle(null);
+            setChannelNote(null);
           }}
         >
           Отправить ещё одну

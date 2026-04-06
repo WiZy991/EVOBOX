@@ -22,5 +22,9 @@ export type LeadPayload = {
 };
 
 export type SubmitLeadResult =
-  | { ok: true }
-  | { ok: false; error: string; code?: "VALIDATION" | "RATE_LIMIT" | "EMAIL" | "SBIS" | "SPAM" };
+  | { ok: true; emailOk: boolean; crmOk?: boolean }
+  | {
+      ok: false;
+      error: string;
+      code?: "VALIDATION" | "RATE_LIMIT" | "EMAIL" | "SBIS" | "SPAM" | "INTEGRATION";
+    };

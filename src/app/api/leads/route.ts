@@ -31,7 +31,11 @@ export async function POST(request: Request) {
   const result = await submitLead(body as RawLeadBody);
 
   if (result.ok) {
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({
+      ok: true,
+      emailOk: result.emailOk,
+      ...(result.crmOk !== undefined ? { crmOk: result.crmOk } : {}),
+    });
   }
 
   if (result.code === "SPAM") {
@@ -43,7 +47,7 @@ export async function POST(request: Request) {
       ? 429
       : result.code === "VALIDATION"
         ? 400
-        : result.code === "EMAIL" || result.code === "SBIS"
+        : result.code === "EMAIL" || result.code === "SBIS" || result.code === "INTEGRATION"
           ? 503
           : 500;
 

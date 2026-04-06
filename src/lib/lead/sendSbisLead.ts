@@ -367,15 +367,32 @@ async function sendSbisJsonRpcRequest(
     }
 
     const result = parsed?.result;
-    if (isLeadInsertResult(result)) {
-      const state = result.d?.Состояние?.trim();
-      if (state) {
-        return { ok: false, error: `Saby CRM: ${state}` };
-      }
-      const docId = result.d?.["@Документ"];
-      if (docId !== undefined) {
-        console.info("[evobox lead] Saby CRM: сделка создана, @Документ=", docId);
-      }
+    if (result === undefined || result === null) {
+      return {
+        ok: false,
+        error: `SBIS: нет result в ответе CRM: ${raw.slice(0, 220)}`,
+      };
+    }
+
+    if (!isLeadInsertResult(result)) {
+      console.error(
+        "[evobox lead] SBIS CRM: неожиданный result",
+        typeof result === "string" ? result.slice(0, 300) : JSON.stringify(result).slice(0, 500),
+      );
+      return { ok: false, error: "SBIS: неожиданный ответ CRM (см. pm2 logs)" };
+    }
+
+    const state = result.d?.Состояние?.trim();
+    if (state) {
+      return { ok: false, error: `Saby CRM: ${state}` };
+    }
+    const docId = result.d?.["@Документ"];
+    if (docId !== undefined) {
+      console.info("[evobox lead] Saby CRM: сделка создана, @Документ=", docId);
+    } else {
+      console.warn(
+        "[evobox lead] SBIS CRM: ответ без @Документ (проверьте регламент и права пользователя)",
+      );
     }
 
     return { ok: true };

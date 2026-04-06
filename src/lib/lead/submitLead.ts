@@ -38,7 +38,8 @@ function normalizeBody(raw: RawLeadBody): unknown {
 }
 
 /**
- * Единая точка обработки заявки: валидация → email → SBIS (опционально).
+ * Валидация → почта и CRM независимы: при SBIS_ENABLED оба вызываются параллельно (Promise.all).
+ * Один не блокирует другой. Успех, если хотя бы один канал сработал; ошибка — если все упали.
  */
 export async function submitLead(raw: RawLeadBody): Promise<SubmitLeadResult> {
   const hp =
@@ -57,16 +58,38 @@ export async function submitLead(raw: RawLeadBody): Promise<SubmitLeadResult> {
   }
 
   const data: LeadApiInput = parsed.data;
+  const sbisOn = process.env.SBIS_ENABLED === "true";
+
+  if (sbisOn) {
+    const [emailResult, sbisResult] = await Promise.all([
+      sendEmailLead(data),
+      sendSbisLead(data),
+    ]);
+
+    if (!emailResult.ok) {
+      console.error("[evobox lead] Почта:", emailResult.error);
+    }
+    if (!sbisResult.ok) {
+      console.error("[evobox lead] SBIS CRM:", sbisResult.error);
+    }
+
+    const emailOk = emailResult.ok;
+    const crmOk = sbisResult.ok;
+
+    if (emailOk || crmOk) {
+      return { ok: true, emailOk, crmOk };
+    }
+
+    return {
+      ok: false,
+      error: `Почта: ${emailResult.error}. CRM: ${sbisResult.error}`,
+      code: "INTEGRATION",
+    };
+  }
 
   const emailResult = await sendEmailLead(data);
   if (!emailResult.ok) {
     return { ok: false, error: emailResult.error, code: "EMAIL" };
   }
-
-  const sbis = await sendSbisLead(data);
-  if (!sbis.ok) {
-    console.error("[evobox lead] Письмо отправлено, но SBIS:", sbis.error);
-  }
-
-  return { ok: true };
+  return { ok: true, emailOk: true };
 }
