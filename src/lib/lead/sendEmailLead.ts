@@ -18,6 +18,24 @@ function getSmtpConfig() {
   return { host, port, user, pass, from, to };
 }
 
+/** Понятный текст на сайте без утечки внутренних деталей SMTP */
+function publicSmtpError(raw: string): string {
+  const m = raw.toLowerCase();
+  if (
+    m.includes("535") ||
+    m.includes("authentication credentials invalid") ||
+    m.includes("invalid login") ||
+    m.includes("auth failed") ||
+    m.includes("535 5.7")
+  ) {
+    return "Почтовый сервер отклонил логин или пароль (ошибка авторизации SMTP). Проверьте на хостинге: SMTP_HOST, SMTP_USER (полный email), SMTP_PASS; при двухфакторной защите нужен пароль приложения. После смены пароля перезапустите сайт: pm2 restart evobox --update-env";
+  }
+  if (m.includes("econnrefused") || m.includes("getaddrinfo") || m.includes("enotfound")) {
+    return "Не удаётся подключиться к SMTP-серверу. Проверьте SMTP_HOST и порт (465 или 587).";
+  }
+  return raw.length > 200 ? `${raw.slice(0, 200)}…` : raw;
+}
+
 export async function sendEmailLead(data: LeadApiInput): Promise<{ ok: true } | { ok: false; error: string }> {
   const cfg = getSmtpConfig();
   if (!cfg) {
@@ -60,6 +78,6 @@ export async function sendEmailLead(data: LeadApiInput): Promise<{ ok: true } | 
   } catch (e) {
     const message = e instanceof Error ? e.message : "Ошибка отправки email";
     console.error("[evobox lead] SMTP:", message);
-    return { ok: false, error: message };
+    return { ok: false, error: publicSmtpError(message) };
   }
 }
