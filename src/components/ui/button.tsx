@@ -4,18 +4,18 @@ import * as React from "react";
 import { cn } from "@/lib/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--evo-green)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-accent)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-[var(--evo-green)] text-white shadow hover:bg-[var(--evo-green-dark)]",
-        accent: "bg-[var(--evo-orange)] text-white shadow hover:bg-[var(--evo-orange-hover)]",
+        default: "bg-[var(--brand-accent)] text-white shadow hover:bg-[var(--brand-accent-hover)]",
+        accent: "bg-[var(--evo-green)] text-white shadow hover:bg-[var(--evo-green-dark)]",
         secondary:
           "border border-slate-200 bg-white text-slate-900 shadow-sm hover:bg-slate-50",
         outline:
-          "border-2 border-[var(--evo-green)] bg-transparent text-[var(--evo-green-dark)] hover:bg-[var(--evo-green)]/5",
+          "border-2 border-[var(--brand-accent)] bg-transparent text-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]",
         ghost: "text-slate-700 hover:bg-slate-100",
-        link: "text-[var(--evo-green-dark)] underline-offset-4 hover:underline",
+        link: "text-[var(--brand-accent)] underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-5 py-2",

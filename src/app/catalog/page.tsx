@@ -100,8 +100,8 @@ function FilterPill({
       className={cn(
         "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
         active
-          ? "border-[var(--evo-green)] bg-[var(--evo-green)] text-white"
-          : "border-slate-200 bg-white text-slate-700 hover:border-[var(--evo-green)]/50",
+          ? "border-[var(--brand-accent)] bg-[var(--brand-accent)] text-white"
+          : "border-slate-200 bg-white text-slate-700 hover:border-[var(--brand-accent)]/50",
       )}
     >
       {children}

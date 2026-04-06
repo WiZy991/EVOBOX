@@ -2,8 +2,9 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLeadModal } from "@/contexts/LeadModalContext";
 import { homeAnchors, mainNav } from "@/data/navigation";
 import { siteConfig } from "@/data/site";
 import { formatPhoneHref } from "@/lib/utils/formatPhone";
@@ -22,8 +23,16 @@ const anchorItems = [
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { openModal } = useLeadModal();
   const [open, setOpen] = useState(false);
   const isHome = pathname === "/";
+
+  function openLeadModal() {
+    router.replace("/", { scroll: false });
+    openModal();
+    setOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
@@ -46,8 +55,8 @@ export function Header() {
               key={item.href}
               href={item.href}
               className={cn(
-                "shrink-0 text-sm font-medium transition-colors hover:text-[var(--evo-green-dark)]",
-                pathname === item.href ? "text-[var(--evo-green-dark)]" : "text-slate-600",
+                "shrink-0 text-sm font-medium transition-colors hover:text-[var(--brand-accent)]",
+                pathname === item.href ? "text-[var(--brand-accent)]" : "text-slate-600",
               )}
             >
               {item.label}
@@ -57,7 +66,7 @@ export function Header() {
             <Link
               key={item.href}
               href={isHome ? item.href.replace("/", "") : item.href}
-              className="shrink-0 text-sm font-medium text-slate-600 transition-colors hover:text-[var(--evo-green-dark)]"
+              className="shrink-0 text-sm font-medium text-slate-600 transition-colors hover:text-[var(--brand-accent)]"
             >
               {item.label}
             </Link>
@@ -66,32 +75,28 @@ export function Header() {
 
         <div className="col-start-3 row-start-1 flex shrink-0 items-center justify-end gap-2 lg:gap-3">
           <div className="hidden items-center gap-3 lg:flex">
-            <div className="hidden flex-col items-end text-right text-sm leading-tight xl:flex">
+            <div className="hidden flex-col items-end text-right leading-tight xl:flex">
               <a
                 href={formatPhoneHref(siteConfig.phone)}
-                className="whitespace-nowrap font-semibold text-slate-800 hover:text-[var(--evo-green-dark)]"
+                className="whitespace-nowrap text-xl font-bold tracking-tight text-[var(--brand-accent)] hover:text-[var(--brand-accent-hover)]"
               >
                 {siteConfig.phone}
               </a>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="mt-0.5 max-w-[14rem] truncate text-slate-600 hover:text-[var(--evo-green-dark)]"
+                className="mt-1 max-w-[14rem] truncate text-xs text-slate-600 hover:text-[var(--brand-accent)]"
                 title={siteConfig.email}
               >
                 {siteConfig.email}
               </a>
             </div>
-            <Button asChild size="sm" className="shrink-0">
-              <Link href={isHome ? `#${homeAnchors.leadForm}` : `/#${homeAnchors.leadForm}`} scroll={true}>
-                Оставить заявку
-              </Link>
+            <Button type="button" size="sm" className="shrink-0" onClick={() => openLeadModal()}>
+              Оставить заявку
             </Button>
           </div>
           <div className="flex items-center gap-2 lg:hidden">
-            <Button asChild size="sm" className="px-3">
-              <Link href={`/#${homeAnchors.leadForm}`} onClick={() => setOpen(false)}>
-                Заявка
-              </Link>
+            <Button type="button" size="sm" className="px-3" onClick={() => openLeadModal()}>
+              Заявка
             </Button>
             <button
               type="button"
@@ -131,7 +136,7 @@ export function Header() {
             ))}
             <a
               href={formatPhoneHref(siteConfig.phone)}
-              className="text-base font-semibold text-[var(--evo-green-dark)]"
+              className="text-lg font-bold text-[var(--brand-accent)]"
             >
               {siteConfig.phone}
             </a>

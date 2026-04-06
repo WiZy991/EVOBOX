@@ -55,6 +55,8 @@ type LeadFormProps = {
   submitLabel?: string;
   redirectToThanks?: boolean;
   className?: string;
+  /** После успешной отправки (без редиректа на /thanks), например закрыть модальное окно */
+  onSubmittedSuccessfully?: () => void;
 };
 
 function LeadFormInner({
@@ -66,6 +68,7 @@ function LeadFormInner({
   submitLabel = "Отправить",
   redirectToThanks = false,
   className,
+  onSubmittedSuccessfully,
 }: LeadFormProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -164,6 +167,8 @@ function LeadFormInner({
       });
       if (redirectToThanks) {
         router.push("/thanks");
+      } else {
+        onSubmittedSuccessfully?.();
       }
     } catch {
       setStatus("error");
@@ -175,7 +180,7 @@ function LeadFormInner({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-[var(--evo-green)]/30 bg-[var(--evo-green)]/5 p-8 text-center shadow-sm",
+          "rounded-2xl border border-[var(--brand-accent)]/35 bg-[var(--brand-accent-soft)] p-8 text-center shadow-sm",
           className,
         )}
       >
@@ -291,14 +296,14 @@ function LeadFormInner({
             Согласен на обработку персональных данных в соответствии с{" "}
             <Link
               href="/personal-data"
-              className="text-[var(--evo-green)] underline underline-offset-2 hover:opacity-90"
+              className="font-medium text-[var(--brand-accent)] underline underline-offset-2 hover:text-[var(--brand-accent-hover)]"
             >
               политикой
             </Link>{" "}
             и{" "}
             <Link
               href="/privacy-policy"
-              className="text-[var(--evo-green)] underline underline-offset-2 hover:opacity-90"
+              className="font-medium text-[var(--brand-accent)] underline underline-offset-2 hover:text-[var(--brand-accent-hover)]"
             >
               конфиденциальности
             </Link>

@@ -1,8 +1,8 @@
 import type { LeadApiInput } from "./validators";
 
 /**
- * Заглушка для будущей интеграции с CRM SBIS.
- * Не вызывать напрямую из форм — только через submitLead().
+ * Интеграция с Saby (SBIS) CRM: POST JSON на URL из панели интеграции.
+ * Точный контракт API уточняйте в документации SBIS; при несовпадении формата смотрите логи сервера.
  */
 export type SbisPayload = {
   formType: LeadApiInput["formType"];
@@ -43,8 +43,9 @@ export async function sendSbisLead(data: LeadApiInput): Promise<
     return { ok: true, skipped: true };
   }
 
-  const apiUrl = process.env.SBIS_API_URL;
-  const apiKey = process.env.SBIS_API_KEY;
+  const apiUrl = process.env.SBIS_API_URL?.trim();
+  const apiKey = process.env.SBIS_API_KEY?.trim();
+  const secretKey = process.env.SBIS_SECRET_KEY?.trim();
 
   if (!apiUrl || !apiKey) {
     return {
@@ -53,15 +54,43 @@ export async function sendSbisLead(data: LeadApiInput): Promise<
     };
   }
 
-  const _payload = buildSbisPayload(data);
+  const payload = buildSbisPayload(data);
+  const body: Record<string, unknown> = {
+    ...payload,
+    ...(secretKey ? { secretKey } : {}),
+  };
 
   try {
-    void apiUrl;
-    void apiKey;
-    void _payload;
+    const ac = new AbortController();
+    const t = setTimeout(() => ac.abort(), 20_000);
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(body),
+      signal: ac.signal,
+    });
+    clearTimeout(t);
+
+    if (!res.ok) {
+      const snippet = (await res.text()).slice(0, 400);
+      return {
+        ok: false,
+        error: `SBIS ответ ${res.status}${snippet ? `: ${snippet}` : ""}`,
+      };
+    }
+
     return { ok: true };
   } catch (e) {
-    const message = e instanceof Error ? e.message : "SBIS: неизвестная ошибка";
+    const message =
+      e instanceof Error
+        ? e.name === "AbortError"
+          ? "SBIS: таймаут запроса"
+          : e.message
+        : "SBIS: неизвестная ошибка";
     return { ok: false, error: message };
   }
 }

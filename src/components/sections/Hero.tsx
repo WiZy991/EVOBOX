@@ -1,9 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Cpu } from "lucide-react";
 import { homeAnchors } from "@/data/navigation";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
+import { HeroActions } from "@/components/sections/HeroActions";
 
 /** PNG с альфой: `public/images/hero-terminal-photoroom.png` (Photoroom / вырезка фона) */
 const HERO_TERMINAL = "/images/hero-terminal-photoroom.png";
@@ -24,11 +23,11 @@ export function Hero() {
         aria-hidden
       />
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_85%_35%,rgba(232,185,35,0.18),transparent_55%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_85%_35%,rgba(255,102,0,0.14),transparent_55%)]"
         aria-hidden
       />
       <div
-        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_15%_85%,rgba(245,208,58,0.1),transparent_50%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_15%_85%,rgba(255,140,60,0.08),transparent_50%)]"
         aria-hidden
       />
 
@@ -38,8 +37,8 @@ export function Hero() {
       <Container className="relative z-10">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10 lg:gap-x-14">
           <div className="text-center lg:text-left">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-amber-100 shadow-[0_0_24px_rgba(245,208,58,0.12)] backdrop-blur-md">
-              <Cpu className="size-3.5 text-[var(--brand-yellow-bright)]" aria-hidden />
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-orange-100 shadow-[0_0_24px_rgba(255,102,0,0.15)] backdrop-blur-md">
+              <Cpu className="size-3.5 text-[var(--brand-accent-bright)]" aria-hidden />
               Партнёр Эвотор · Подбор касс и честные условия
             </p>
             <h1 className="mt-7 text-balance text-3xl font-bold tracking-tight text-white drop-shadow-sm sm:text-4xl lg:text-5xl">
@@ -49,28 +48,12 @@ export function Hero() {
               Помогаем выбрать смарт-терминал или POS Power под вашу нишу, подключаем кассу к ОФД и эквайрингу,
               регистрируем ККТ и обучаем персонал — фокус на решениях Эвотор, а не «абстрактной автоматизации».
             </p>
-            <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
-              <Button
-                asChild
-                size="lg"
-                className="w-full border-0 bg-[var(--brand-yellow)] text-[var(--brand-dark)] shadow-[0_0_32px_rgba(232,185,35,0.35)] hover:bg-[var(--brand-yellow-bright)] sm:w-auto"
-              >
-                <Link href={`/?intent=equipment#${homeAnchors.leadForm}`}>Подобрать кассу</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full border-2 border-white/35 bg-white/5 text-white backdrop-blur-sm hover:bg-white/12 hover:text-white sm:w-auto"
-              >
-                <Link href={`/?intent=consultation#${homeAnchors.leadForm}`}>Получить консультацию</Link>
-              </Button>
-            </div>
+            <HeroActions />
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none lg:justify-self-end">
             <div
-              className="pointer-events-none absolute inset-0 -z-10 scale-110 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(245,208,58,0.22),transparent_68%)] blur-2xl"
+              className="pointer-events-none absolute inset-0 -z-10 scale-110 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,102,0,0.2),transparent_68%)] blur-2xl"
               aria-hidden
             />
             <div className="relative aspect-[555/352] w-full max-w-lg lg:ml-auto lg:max-w-xl">

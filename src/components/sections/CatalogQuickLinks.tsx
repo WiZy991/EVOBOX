@@ -16,7 +16,7 @@ export function CatalogQuickLinks() {
               <Link
                 key={p.slug}
                 href={`/catalog/${p.slug}`}
-                className="text-sm font-medium text-slate-800 transition-colors hover:text-[var(--evo-green-dark)]"
+                className="text-sm font-medium text-slate-800 transition-colors hover:text-[var(--brand-accent)]"
               >
                 {p.name}
               </Link>

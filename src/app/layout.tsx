@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
+import { ClientShell } from "@/components/layout/ClientShell";
 import { siteConfig } from "@/data/site";
 import { baseUrl } from "@/lib/seo";
 import "./globals.css";
@@ -43,9 +42,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} min-h-screen font-[family-name:var(--font-geist-sans),system-ui,sans-serif] antialiased`}
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

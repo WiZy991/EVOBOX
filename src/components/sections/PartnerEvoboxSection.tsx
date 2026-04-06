@@ -15,7 +15,7 @@ const points = [
 
 export function PartnerEvoboxSection() {
   return (
-    <Section id={homeAnchors.partner} className="border-y border-slate-200 bg-[var(--evo-green)]/5">
+    <Section id={homeAnchors.partner} className="border-y border-slate-200 bg-[var(--brand-accent-soft)]">
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
@@ -28,7 +28,7 @@ export function PartnerEvoboxSection() {
           <ul className="space-y-4">
             {points.map((p) => (
               <li key={p} className="flex gap-3 text-slate-800">
-                <CheckCircle2 className="size-6 shrink-0 text-[var(--evo-green)]" aria-hidden />
+                <CheckCircle2 className="size-6 shrink-0 text-[var(--brand-accent)]" aria-hidden />
                 <span className="font-medium">{p}</span>
               </li>
             ))}

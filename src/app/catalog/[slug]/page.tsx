@@ -34,7 +34,7 @@ export default function ProductPage({ params }: PageProps) {
       <section className="border-b border-slate-200 bg-slate-50 py-10">
         <Container>
           <nav className="text-sm text-slate-500">
-            <Link href="/catalog" className="hover:text-[var(--evo-green-dark)]">
+            <Link href="/catalog" className="hover:text-[var(--brand-accent)]">
               Каталог
             </Link>
             <span className="mx-2">/</span>
@@ -58,7 +58,7 @@ export default function ProductPage({ params }: PageProps) {
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{product.name}</h1>
               <p className="mt-4 text-lg text-slate-600">{product.shortDescription}</p>
-              <p className="mt-4 text-2xl font-bold text-[var(--evo-green-dark)]">{formatProductPrice(product)}</p>
+              <p className="mt-4 text-2xl font-bold text-[var(--brand-accent)]">{formatProductPrice(product)}</p>
               {product.statusNote && (
                 <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900">{product.statusNote}</p>
               )}

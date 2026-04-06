@@ -65,7 +65,7 @@ export async function submitLead(raw: RawLeadBody): Promise<SubmitLeadResult> {
 
   const sbis = await sendSbisLead(data);
   if (!sbis.ok) {
-    return { ok: false, error: sbis.error, code: "SBIS" };
+    console.error("[evobox lead] Письмо отправлено, но SBIS:", sbis.error);
   }
 
   return { ok: true };

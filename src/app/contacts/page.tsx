@@ -30,35 +30,35 @@ export default function ContactsPage() {
               <h2 className="text-lg font-semibold text-slate-900">Реквизиты и адрес</h2>
               <ul className="mt-6 space-y-6">
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--evo-green)_12%,white)] text-[var(--evo-green-dark)]">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]">
                     <Phone className="size-5" aria-hidden />
                   </span>
                   <div>
                     <p className="text-sm font-medium text-slate-500">Телефон</p>
                     <a
                       href={formatPhoneHref(siteConfig.phone)}
-                      className="text-lg font-semibold text-slate-900 hover:text-[var(--evo-green-dark)]"
+                      className="text-xl font-bold text-slate-900 hover:text-[var(--brand-accent)]"
                     >
                       {siteConfig.phone}
                     </a>
                   </div>
                 </li>
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--evo-green)_12%,white)] text-[var(--evo-green-dark)]">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]">
                     <Mail className="size-5" aria-hidden />
                   </span>
                   <div>
                     <p className="text-sm font-medium text-slate-500">Email</p>
                     <a
                       href={`mailto:${siteConfig.email}`}
-                      className="text-lg font-semibold text-slate-900 hover:text-[var(--evo-green-dark)]"
+                      className="text-lg font-semibold text-slate-900 hover:text-[var(--brand-accent)]"
                     >
                       {siteConfig.email}
                     </a>
                   </div>
                 </li>
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--evo-green)_12%,white)] text-[var(--evo-green-dark)]">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]">
                     <MapPin className="size-5" aria-hidden />
                   </span>
                   <div>

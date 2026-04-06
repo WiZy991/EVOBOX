@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="flex min-w-0 flex-1 flex-col p-5">
         <h3 className="text-lg font-semibold text-slate-900">{product.name}</h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{product.shortDescription}</p>
-        <p className="mt-3 text-base font-bold text-[var(--evo-green-dark)]">{priceLabel}</p>
+        <p className="mt-3 text-base font-bold text-[var(--brand-accent)]">{priceLabel}</p>
         {product.statusNote && (
           <p className="mt-2 text-xs text-amber-800">{product.statusNote}</p>
         )}

@@ -23,13 +23,13 @@ export function Footer() {
             <ul className="mt-3 space-y-2 text-sm">
               {mainNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-slate-600 hover:text-[var(--evo-green-dark)]">
+                  <Link href={item.href} className="text-slate-600 hover:text-[var(--brand-accent)]">
                     {item.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href={`/#${homeAnchors.equipment}`} className="text-slate-600 hover:text-[var(--evo-green-dark)]">
+                <Link href={`/#${homeAnchors.equipment}`} className="text-slate-600 hover:text-[var(--brand-accent)]">
                   Оборудование на главной
                 </Link>
               </li>
@@ -39,12 +39,12 @@ export function Footer() {
             <p className="text-sm font-semibold text-slate-900">Контакты</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
               <li>
-                <a href={formatPhoneHref(siteConfig.phone)} className="hover:text-[var(--evo-green-dark)]">
+                <a href={formatPhoneHref(siteConfig.phone)} className="hover:text-[var(--brand-accent)]">
                   {siteConfig.phone}
                 </a>
               </li>
               <li>
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-[var(--evo-green-dark)]">
+                <a href={`mailto:${siteConfig.email}`} className="hover:text-[var(--brand-accent)]">
                   {siteConfig.email}
                 </a>
               </li>
@@ -55,12 +55,12 @@ export function Footer() {
             <p className="text-sm font-semibold text-slate-900">Документы</p>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link href="/privacy-policy" className="text-slate-600 hover:text-[var(--evo-green-dark)]">
+                <Link href="/privacy-policy" className="text-slate-600 hover:text-[var(--brand-accent)]">
                   Политика конфиденциальности
                 </Link>
               </li>
               <li>
-                <Link href="/personal-data" className="text-slate-600 hover:text-[var(--evo-green-dark)]">
+                <Link href="/personal-data" className="text-slate-600 hover:text-[var(--brand-accent)]">
                   Обработка персональных данных
                 </Link>
               </li>

@@ -7,7 +7,7 @@ export function CTASection() {
   return (
     <Section
       id={homeAnchors.leadForm}
-      className="bg-gradient-to-br from-slate-900 via-slate-800 to-[var(--evo-green-dark)] text-white"
+      className="bg-gradient-to-br from-slate-900 via-slate-800 to-[#8b2d00] text-white"
     >
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">

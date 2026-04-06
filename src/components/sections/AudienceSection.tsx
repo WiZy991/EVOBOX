@@ -49,7 +49,7 @@ export function AudienceSection() {
               key={title}
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="flex size-10 items-center justify-center rounded-lg bg-[var(--evo-green)]/10 text-[var(--evo-green-dark)]">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-[var(--brand-accent-soft)] text-[var(--brand-accent)]">
                 <Icon className="size-5" aria-hidden />
               </div>
               <h3 className="mt-4 font-semibold text-slate-900">{title}</h3>

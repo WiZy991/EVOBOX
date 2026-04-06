@@ -4,14 +4,15 @@ import { formatLeadBody, formatLeadSubject } from "./formatLeadMessage";
 import type { LeadApiInput } from "./validators";
 
 function getSmtpConfig() {
-  const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : undefined;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const from = process.env.SMTP_FROM || user;
-  const to = process.env.LEAD_RECEIVER_EMAIL || siteConfig.email;
+  const host = process.env.SMTP_HOST?.trim();
+  const portRaw = process.env.SMTP_PORT?.trim();
+  const port = portRaw ? Number(portRaw) : NaN;
+  const user = process.env.SMTP_USER?.trim();
+  const pass = process.env.SMTP_PASS?.trim();
+  const from = (process.env.SMTP_FROM?.trim() || user)?.trim();
+  const to = process.env.LEAD_RECEIVER_EMAIL?.trim() || siteConfig.email;
 
-  if (!host || !port || !user || !pass || !from) {
+  if (!host || !Number.isFinite(port) || !user || !pass || !from) {
     return null;
   }
   return { host, port, user, pass, from, to };
@@ -23,14 +24,16 @@ export async function sendEmailLead(data: LeadApiInput): Promise<{ ok: true } | 
     return {
       ok: false,
       error:
-        "SMTP не настроен. Заполните SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM в .env",
+        "SMTP не настроен. На сервере задайте переменные в файле .env.production (или .env), не в .env.example. Нужны SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS.",
     };
   }
 
+  const secure = cfg.port === 465;
   const transporter = nodemailer.createTransport({
     host: cfg.host,
     port: cfg.port,
-    secure: cfg.port === 465,
+    secure,
+    requireTLS: !secure && cfg.port === 587,
     auth: { user: cfg.user, pass: cfg.pass },
   });
 
