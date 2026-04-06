@@ -47,6 +47,8 @@ export type LeadFormValues = z.infer<typeof formSchema>;
 
 type LeadFormProps = {
   formType: LeadFormType;
+  /** Компактная форма для модального окна: без email/комментария, плотная вёрстка */
+  variant?: "default" | "compact";
   productName?: string;
   productSlug?: string;
   /** Если не передан — берётся текущий путь */
@@ -61,6 +63,7 @@ type LeadFormProps = {
 
 function LeadFormInner({
   formType,
+  variant = "default",
   productName,
   productSlug,
   sourcePage: sourcePageProp,
@@ -70,6 +73,7 @@ function LeadFormInner({
   className,
   onSubmittedSuccessfully,
 }: LeadFormProps) {
+  const compact = variant === "compact";
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -180,21 +184,26 @@ function LeadFormInner({
     return (
       <div
         className={cn(
-          "rounded-2xl border border-[var(--brand-accent)]/35 bg-[var(--brand-accent-soft)] p-8 text-center shadow-sm",
+          "rounded-2xl border border-[var(--brand-accent)]/35 bg-[var(--brand-accent-soft)] text-center shadow-sm",
+          compact ? "p-4" : "p-8",
           className,
         )}
       >
-        <p className="text-lg font-semibold text-slate-900">Заявка отправлена</p>
+        <p className={cn("font-semibold text-slate-900", compact ? "text-base" : "text-lg")}>
+          Заявка отправлена
+        </p>
         {submittedServiceTitle ? (
-          <p className="mt-2 text-sm text-slate-600">
+          <p className={cn("mt-2 text-slate-600", compact ? "text-xs" : "text-sm")}>
             Услуга: <span className="font-medium text-slate-800">{submittedServiceTitle}</span>
           </p>
         ) : null}
-        <p className="mt-2 text-sm text-slate-600">Мы свяжемся с вами в ближайшее время.</p>
+        <p className={cn("mt-2 text-slate-600", compact ? "text-xs" : "text-sm")}>
+          Мы свяжемся с вами в ближайшее время.
+        </p>
         <Button
           type="button"
           variant="secondary"
-          className="mt-6"
+          className={compact ? "mt-4 h-9 text-sm" : "mt-6"}
           onClick={() => {
             setStatus("idle");
             setSubmittedServiceTitle(null);
@@ -206,25 +215,34 @@ function LeadFormInner({
     );
   }
 
+  const inputSm = compact ? "h-9 text-sm" : "";
+  const labelSm = compact ? "text-xs" : "";
+
   return (
     <div className={cn("rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8", className)}>
-      <h3 className="text-xl font-semibold tracking-tight text-slate-900">{title}</h3>
-      {selectedService ? (
+      {title ? <h3 className="text-xl font-semibold tracking-tight text-slate-900">{title}</h3> : null}
+      {!compact && selectedService ? (
         <p className="mt-3 border-l-[3px] border-[var(--evo-orange)] pl-3 text-sm leading-snug text-slate-700">
           <span className="font-semibold text-slate-900">Услуга:</span> {selectedService.title}
         </p>
       ) : null}
-      <p className="mt-1 text-sm text-slate-600">
-        {selectedService
-          ? "Оставьте контакты — перезвоним и согласуем сроки и формат работ."
-          : "Перезвоним и уточним детали по оборудованию Эвотор."}
-      </p>
+      {!compact ? (
+        <p className="mt-1 text-sm text-slate-600">
+          {selectedService
+            ? "Оставьте контакты — перезвоним и согласуем сроки и формат работ."
+            : "Перезвоним и уточним детали по оборудованию Эвотор."}
+        </p>
+      ) : null}
 
-      <form className="relative mt-6 space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
+      <form
+        className={cn("relative", compact ? "mt-0 space-y-2.5" : "mt-6 space-y-4")}
+        onSubmit={form.handleSubmit(onSubmit)}
+        noValidate
+      >
         <div className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden>
-          <label htmlFor="companyWebsite">Website</label>
+          <label htmlFor={compact ? "lead-modal-hp" : "companyWebsite"}>Website</label>
           <input
-            id="companyWebsite"
+            id={compact ? "lead-modal-hp" : "companyWebsite"}
             type="text"
             tabIndex={-1}
             autoComplete="off"
@@ -232,30 +250,53 @@ function LeadFormInner({
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lead-name">Имя *</Label>
-          <Input id="lead-name" placeholder="Как к вам обращаться" {...form.register("name")} />
-          {form.formState.errors.name && (
-            <p className="text-sm text-red-600">{form.formState.errors.name.message}</p>
-          )}
+        <div className={cn(compact && "grid gap-2.5 sm:grid-cols-2")}>
+          <div className="space-y-1">
+            <Label htmlFor={compact ? "lead-modal-name" : "lead-name"} className={labelSm}>
+              Имя *
+            </Label>
+            <Input
+              id={compact ? "lead-modal-name" : "lead-name"}
+              className={inputSm}
+              placeholder="Имя"
+              {...form.register("name")}
+            />
+            {form.formState.errors.name && (
+              <p className={cn("text-red-600", compact ? "text-xs" : "text-sm")}>
+                {form.formState.errors.name.message}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <Label htmlFor={compact ? "lead-modal-city" : "lead-city"} className={labelSm}>
+              Город *
+            </Label>
+            <Input
+              id={compact ? "lead-modal-city" : "lead-city"}
+              className={inputSm}
+              placeholder="Город"
+              {...form.register("city")}
+            />
+            {form.formState.errors.city && (
+              <p className={cn("text-red-600", compact ? "text-xs" : "text-sm")}>
+                {form.formState.errors.city.message}
+              </p>
+            )}
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lead-city">Город *</Label>
-          <Input id="lead-city" placeholder="Например, Владивосток" {...form.register("city")} />
-          {form.formState.errors.city && (
-            <p className="text-sm text-red-600">{form.formState.errors.city.message}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="lead-phone">Телефон *</Label>
+        <div className="space-y-1">
+          <Label htmlFor={compact ? "lead-modal-phone" : "lead-phone"} className={labelSm}>
+            Телефон *
+          </Label>
           <Controller
             control={form.control}
             name="phone"
             render={({ field }) => (
               <Input
-                id="lead-phone"
+                id={compact ? "lead-modal-phone" : "lead-phone"}
+                className={inputSm}
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
@@ -269,36 +310,49 @@ function LeadFormInner({
             )}
           />
           {form.formState.errors.phone && (
-            <p className="text-sm text-red-600">{form.formState.errors.phone.message}</p>
+            <p className={cn("text-red-600", compact ? "text-xs" : "text-sm")}>
+              {form.formState.errors.phone.message}
+            </p>
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lead-email">Email</Label>
-          <Input id="lead-email" type="email" placeholder="Необязательно" {...form.register("email")} />
-          {form.formState.errors.email && (
-            <p className="text-sm text-red-600">{form.formState.errors.email.message}</p>
-          )}
-        </div>
+        {!compact ? (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="lead-email">Email</Label>
+              <Input id="lead-email" type="email" placeholder="Необязательно" {...form.register("email")} />
+              {form.formState.errors.email && (
+                <p className="text-sm text-red-600">{form.formState.errors.email.message}</p>
+              )}
+            </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lead-comment">Комментарий</Label>
-          <Textarea id="lead-comment" placeholder="Ниша, количество касс, пожелания…" {...form.register("comment")} />
-        </div>
+            <div className="space-y-2">
+              <Label htmlFor="lead-comment">Комментарий</Label>
+              <Textarea id="lead-comment" placeholder="Ниша, количество касс, пожелания…" {...form.register("comment")} />
+            </div>
+          </>
+        ) : null}
 
-        <div className="flex items-start gap-3 pt-2">
+        <div className={cn("flex items-start gap-2", compact ? "pt-0.5" : "gap-3 pt-2")}>
           <Checkbox
-            id="lead-consent"
+            id={compact ? "lead-modal-consent" : "lead-consent"}
+            className={compact ? "mt-0.5" : undefined}
             checked={form.watch("consent")}
             onCheckedChange={(c) => form.setValue("consent", c === true, { shouldValidate: true })}
           />
-          <Label htmlFor="lead-consent" className="cursor-pointer font-normal leading-snug text-slate-600">
-            Согласен на обработку персональных данных в соответствии с{" "}
+          <Label
+            htmlFor={compact ? "lead-modal-consent" : "lead-consent"}
+            className={cn(
+              "cursor-pointer font-normal text-slate-600",
+              compact ? "text-[11px] leading-snug" : "leading-snug",
+            )}
+          >
+            Согласен на обработку ПДн по{" "}
             <Link
               href="/personal-data"
               className="font-medium text-[var(--brand-accent)] underline underline-offset-2 hover:text-[var(--brand-accent-hover)]"
             >
-              политикой
+              политике
             </Link>{" "}
             и{" "}
             <Link
@@ -311,16 +365,22 @@ function LeadFormInner({
           </Label>
         </div>
         {form.formState.errors.consent && (
-          <p className="text-sm text-red-600">{form.formState.errors.consent.message}</p>
+          <p className={cn("text-red-600", compact ? "text-xs" : "text-sm")}>
+            {form.formState.errors.consent.message}
+          </p>
         )}
 
         {status === "error" && errorMessage && (
-          <p className="text-sm text-red-600" role="alert">
+          <p className={cn("text-red-600", compact ? "text-xs" : "text-sm")} role="alert">
             {errorMessage}
           </p>
         )}
 
-        <Button type="submit" className="w-full sm:w-auto" disabled={status === "loading"}>
+        <Button
+          type="submit"
+          className={cn("w-full", !compact && "sm:w-auto", compact && "h-9 text-sm")}
+          disabled={status === "loading"}
+        >
           {status === "loading" ? "Отправка…" : submitLabel}
         </Button>
       </form>
@@ -328,11 +388,12 @@ function LeadFormInner({
   );
 }
 
-function LeadFormSkeleton({ className }: { className?: string }) {
+function LeadFormSkeleton({ className, compact }: { className?: string; compact?: boolean }) {
   return (
     <div
       className={cn(
-        "min-h-[420px] animate-pulse rounded-2xl border border-slate-200 bg-slate-50 p-8",
+        "animate-pulse rounded-2xl border border-slate-200 bg-slate-50",
+        compact ? "min-h-[220px] p-4" : "min-h-[420px] p-8",
         className,
       )}
       aria-hidden
@@ -341,8 +402,9 @@ function LeadFormSkeleton({ className }: { className?: string }) {
 }
 
 export function LeadForm(props: LeadFormProps) {
+  const compact = props.variant === "compact";
   return (
-    <Suspense fallback={<LeadFormSkeleton className={props.className} />}>
+    <Suspense fallback={<LeadFormSkeleton className={props.className} compact={compact} />}>
       <LeadFormInner {...props} />
     </Suspense>
   );
