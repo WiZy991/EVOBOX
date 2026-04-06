@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { formatProductPrice, getProductBySlug, products } from "@/data/products";
 import { buildMetadata } from "@/lib/seo";
 import { Container } from "@/components/layout/Container";
+import { ProductLeadSection } from "@/components/catalog/ProductLeadSection";
 import { Button } from "@/components/ui/button";
 import { LeadForm } from "@/components/ui/LeadForm";
 
@@ -79,10 +80,14 @@ export default function ProductPage({ params }: PageProps) {
                 {!discontinued && (
                   <>
                     <Button asChild>
-                      <Link href="#zayavka">Оставить заявку на товар</Link>
+                      <Link href={`/catalog/${product.slug}?mode=product#lead-form`}>
+                        Оставить заявку на товар
+                      </Link>
                     </Button>
                     <Button asChild variant="accent">
-                      <Link href="#konsult">Получить консультацию</Link>
+                      <Link href={`/catalog/${product.slug}?mode=consultation#lead-form`}>
+                        Получить консультацию
+                      </Link>
                     </Button>
                   </>
                 )}
@@ -99,38 +104,7 @@ export default function ProductPage({ params }: PageProps) {
           </div>
         </Container>
       </section>
-      {!discontinued && (
-        <>
-          <section id="zayavka" className="scroll-mt-24 border-t border-slate-200 bg-slate-50 py-14">
-            <Container className="max-w-xl">
-              <h2 className="text-xl font-semibold text-slate-900">Заявка на {product.name}</h2>
-              <p className="mt-2 text-sm text-slate-600">Уточним комплект, условия доставки и сроки запуска.</p>
-              <LeadForm
-                formType="product"
-                productName={product.name}
-                productSlug={product.slug}
-                title="Оставить заявку на этот товар"
-                submitLabel="Отправить заявку"
-                className="mt-6"
-              />
-            </Container>
-          </section>
-          <section id="konsult" className="scroll-mt-24 border-t border-slate-200 py-14">
-            <Container className="max-w-xl">
-              <h2 className="text-xl font-semibold text-slate-900">Консультация по {product.name}</h2>
-              <p className="mt-2 text-sm text-slate-600">Ответим на вопросы по комплектам и подключению.</p>
-              <LeadForm
-                formType="consultation"
-                productName={product.name}
-                productSlug={product.slug}
-                title="Получить консультацию"
-                submitLabel="Запросить звонок"
-                className="mt-6"
-              />
-            </Container>
-          </section>
-        </>
-      )}
+      {!discontinued && <ProductLeadSection product={product} />}
       {discontinued && (
         <section className="border-t border-slate-200 bg-slate-50 py-14">
           <Container className="max-w-xl">

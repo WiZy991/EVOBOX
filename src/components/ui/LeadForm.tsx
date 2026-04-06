@@ -379,7 +379,7 @@ function LeadFormInner({
         <Button
           type="submit"
           className={cn("w-full", !compact && "sm:w-auto", compact && "h-9 text-sm")}
-          disabled={status === "loading"}
+          disabled={status === "loading" || !form.watch("consent")}
         >
           {status === "loading" ? "Отправка…" : submitLabel}
         </Button>
