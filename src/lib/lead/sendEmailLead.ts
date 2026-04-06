@@ -24,17 +24,25 @@ export async function sendEmailLead(data: LeadApiInput): Promise<{ ok: true } | 
     return {
       ok: false,
       error:
-        "SMTP не настроен. На сервере задайте переменные в файле .env.production (или .env), не в .env.example. Нужны SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS.",
+        "SMTP не настроен. На сервере задайте переменные в `.env.production` или `.env` (не в `.env.example`). Нужны SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS. После правок: pm2 restart evobox --update-env",
     };
   }
 
   const secure = cfg.port === 465;
+  const rejectUnauthorized = process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== "false";
+
   const transporter = nodemailer.createTransport({
     host: cfg.host,
     port: cfg.port,
     secure,
     requireTLS: !secure && cfg.port === 587,
     auth: { user: cfg.user, pass: cfg.pass },
+    connectionTimeout: 20_000,
+    greetingTimeout: 15_000,
+    tls: {
+      rejectUnauthorized,
+      minVersion: "TLSv1.2" as const,
+    },
   });
 
   const subject = formatLeadSubject(data);
@@ -51,6 +59,7 @@ export async function sendEmailLead(data: LeadApiInput): Promise<{ ok: true } | 
     return { ok: true };
   } catch (e) {
     const message = e instanceof Error ? e.message : "Ошибка отправки email";
+    console.error("[evobox lead] SMTP:", message);
     return { ok: false, error: message };
   }
 }
